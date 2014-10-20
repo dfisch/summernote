@@ -6,7 +6,7 @@
  * Copyright 2013-2014 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2014-10-20T14:32Z
+ * Date: 2014-10-20T15:12Z
  */
 (function (factory) {
   /* global define */
@@ -1180,8 +1180,14 @@
       }
 
       var content = $holder.code();
+      // wrap the content in a div tag so that jQuery is happy when dom.isEmpty() is called
+      // this does not change the content that is set on the textarea
+      // this is necessary because when you backspace in the editor past the initial <p><br/></p>, the content
+      // is no longer wrapped in any element, wrapping this in a div will also send content of the entire editor to
+      // the isEmpty() call instead of only the first element that could be an empty paragraph
+      var contentData = $('<div>' + content + '</div>')[0];
 
-      if (!content || dom.isEmpty($(content)[0])) {
+      if (!content || dom.isEmpty(contentData)) {
         // set the content to an empty string to support validation
         content = '';
       }
