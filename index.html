@@ -48,6 +48,16 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  <hr />
+  <form id="summernoteForm">
+    <div>
+      <textarea id="ta2" class="summernote required"></textarea>
+    </div>
+    <br/>
+    <div class="pull-right">
+      <button type="button" data-target="#ta2" class="btn btn-primary content-btn">Show Content</button>
+    </div>
+  </form>
 </div>
 <script type="text/javascript">
   less = {
@@ -72,6 +82,11 @@
   $(function() {
     $('#summernoteFormModal').validate({
       ignore: '.ignore'
+    });
+
+    $('.content-btn').on('click', function() {
+      alert($($(this).data('target')).val());
+      return false;
     });
   });
 </script>
